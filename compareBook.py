@@ -54,16 +54,14 @@ label.pack(pady=10)
 entry = tk.Entry(root, width=50)
 entry.pack()
 
-amazon_search_button = tk.Button(root, text="Amazonで検索ページを開く", command=open_amazon_search)
-amazon_search_button.pack(pady=10)
+sites = {
+    "Amazon": open_amazon_search,
+    "メルカリ": open_mercali_search,
+    "ヤフーフリマ": open_yahoo_search,
+    "OPAC": open_opac_search
+}
 
-mercari_search_button = tk.Button(root, text="メルカリで検索ページを開く", command=open_mercali_search)
-mercari_search_button.pack(pady=10)
-
-yahoo_search_button = tk.Button(root, text="ヤフーフリマで検索ページを開く", command=open_yahoo_search)
-yahoo_search_button.pack(pady=10)
-
-opac_search_button = tk.Button(root, text="OPACで検索ページを開く", command=open_opac_search)
-opac_search_button.pack(pady=10)
-
+for name, func in sites.items():
+    btn = tk.Button(root, text=f"{name}で検索ページを開く", command=func)
+    btn.pack(pady=10)
 root.mainloop()
