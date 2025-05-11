@@ -43,6 +43,23 @@ def open_yahoo_search():
     search_url = f"https://paypayfleamarket.yahoo.co.jp/search/{encoded_name}?open=1"
     webbrowser.open(search_url)
 
+def open_all_searches():
+    product_name = entry.get()
+    if not product_name.strip():
+        messagebox.showerror("エラー", "商品名を入力してください")
+        return
+    encoded_name = urllib.parse.quote(product_name)
+
+    urls = [
+        f"https://www.amazon.co.jp/s?k={encoded_name}",
+        f"https://jp.mercari.com/search?keyword={encoded_name}&status=on_sale",
+        f"https://opac.library.osaka-u.ac.jp/opac/opac_search/?lang=0&amode=2&appname=Netscape&version=5&cmode=0&smode=0&kywd={encoded_name}&index_amazon_s=Books&node_s=",
+        f"https://paypayfleamarket.yahoo.co.jp/search/{encoded_name}?open=1"
+    ]
+
+    for url in urls:
+        webbrowser.open(url)
+
 # GUI構築
 root = tk.Tk()
 root.title("商品検索オープナー")
@@ -64,4 +81,8 @@ sites = {
 for name, func in sites.items():
     btn = tk.Button(root, text=f"{name}で検索ページを開く", command=func)
     btn.pack(pady=10)
+
+all_search_botton = tk.Button(root, text="全ての検索ページを開く", command=open_all_searches)
+all_search_botton.pack(pady=10)
+
 root.mainloop()
